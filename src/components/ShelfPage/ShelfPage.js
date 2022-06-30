@@ -26,7 +26,11 @@ function ShelfPage() {
       <ul>
         {shelf.map(item => {
           return (
-              <li key={item.id}>{item.description}</li>
+              <li key={item.id}>
+                {item.description}
+                <img src={item.image_url} />
+                <button>Delete</button>
+              </li>
           )
         })}
       </ul>
