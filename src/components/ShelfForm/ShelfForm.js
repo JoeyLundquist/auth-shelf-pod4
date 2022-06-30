@@ -16,6 +16,8 @@ const ShelfForm = () => {
                 description
             }
         })
+        setDescription('');
+        setImageUrl('');
     }
 
     return (
