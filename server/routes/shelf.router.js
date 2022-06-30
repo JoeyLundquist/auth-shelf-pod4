@@ -7,7 +7,15 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * Get all of the items on the shelf
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-  res.sendStatus(200); // For testing only, can be removed
+  const query = `SELECT * FROM item`;
+  pool.query(query)
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log(`Error in the shelf router`, err)
+      res.sendStatus(500);
+    }) 
 });
 
 /**
@@ -35,7 +43,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
  * Return all users along with the total number of items
  * they have added to the shelf
  */
-router.get('/count', rejectUnauthenticated (req, res) => {
+router.get('/count', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
 });
 
