@@ -3,6 +3,7 @@ import React from 'react';
 import ShelfForm from '../ShelfForm/ShelfForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import DeleteButton from '../DeleteButton/DeleteButton';
 
 function ShelfPage() {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ function ShelfPage() {
               <li key={item.id}>
                 {item.description}
                 <img src={item.image_url} />
-                <button>Delete</button>
+                {/* sending down the userId to make a cleaner delete button component */}
+                <DeleteButton userId={item.user_id} itemId={item.id}/>
               </li>
           )
         })}

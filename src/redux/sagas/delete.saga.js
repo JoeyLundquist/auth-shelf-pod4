@@ -5,10 +5,13 @@ import { put, takeLatest } from 'redux-saga/effects';
 //action is the object that has all the commands and data
 function* deleteItem(action){
     try {
-        yield axios.delete(`/api/shelf/${action.payload.id}`, action.payload)
+        yield axios.delete(`/api/shelf/${action.payload.id}`)
+        yield put ({
+            type:'FETCH_SHELF'
+        })
     }
     catch(err) {
-        res.sendStatus(500)
+        console.log("o jezz", err)
     }
 }
 
