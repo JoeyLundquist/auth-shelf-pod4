@@ -1,21 +1,27 @@
-import { useDispatch } from 'react-redux' 
-import { useSelector } from ''
+import { useDispatch, useSelector } from 'react-redux' 
 
-function DeleteButton( {id} ){
+
+function DeleteButton({userId, itemId}){
     const dispatch = useDispatch();
     let user = useSelector(store => store.user)
     const handleClick = () => {
         dispatch({
             type: 'DELETE_ITEM',
-            payload: id
+            payload: {id : itemId}
         })
     }
+
+function deleteRender(a,b) {
+    if(a === b) {
+        return (
+            <button onClick={handleClick}>DELETE</button>
+        )
+    }
+}
     return(
-        <>
-        if(user_id == id){
-            <button onClick={handleClick}>DELETE </button>
-        }
-        </>
+        <div>
+        {deleteRender(user.id, userId)}
+        </div>
     )
 }
 
