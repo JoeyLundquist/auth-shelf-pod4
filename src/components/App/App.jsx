@@ -111,6 +111,12 @@ function App() {
               <LandingPage />
             }
           </Route>
+          
+          {/* <Route
+            exact
+            path="/info">
+          <InfoPage />
+          </Route> */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
