@@ -99,6 +99,34 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  const sqlQuery = `
+  UPDATE item
+  SET description = $3
+  WHERE id = $1
+  AND user_id = $2
+  RETURNING *;
+  `
+  const sqlParams = [
+    req.params.id,
+    req.user.id,
+    req.body.description
+  ]
+  console.log('params.id', req.params.id)
+  console.log('user.id', req.user.id)
+  console.log('description', req.body.description)
+  pool.query(sqlQuery, sqlParams).then ((dbRes) => {
+    if (dbRes.rows.length === 0 ){
+      res.sendStatus(404)
+      console.log('wrong dudeski')
+      // if you're sending information back in a delete like you are with the returning *, you need to send a status back
+    } else {
+    res.sendStatus(200)
+    }
+  })
+  .catch((err) => {
+    console.log('Err in DELETE', err)
+    res.sendStatus(500)
+  })
 });
 
 /**
@@ -114,6 +142,9 @@ router.get('/count', rejectUnauthenticated, (req, res) => {
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+ 
+
+
 });
 
 module.exports = router;
