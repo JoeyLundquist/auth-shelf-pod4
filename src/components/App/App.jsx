@@ -62,12 +62,14 @@ function App() {
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/shelf"
-          >
-            <ShelfPage />
+            exact path="/shelf">
+            <ShelfPage saga={"FETCH_SHELF"}/>
           </ProtectedRoute>
 
+            {/* sending these two saga calls FETCH SHELF and FETCH MY SHELF and having them using the same variable of saga but attaching with those two calls with the conditional rendering that happens on the ShelfPage*/}
+          <ProtectedRoute exact path="/myshelf">
+            <ShelfPage saga={"FETCH_MY_SHELF"}/>
+            </ProtectedRoute>
           <Route
             exact
             path="/login"
@@ -109,6 +111,12 @@ function App() {
               <LandingPage />
             }
           </Route>
+          
+          {/* <Route
+            exact
+            path="/info">
+          <InfoPage />
+          </Route> */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
