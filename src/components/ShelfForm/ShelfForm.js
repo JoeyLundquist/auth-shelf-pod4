@@ -12,8 +12,8 @@ const ShelfForm = () => {
         dispatch({
             type: 'ADD_ITEM',
             payload: {
-                imageUrl,
-                description
+                image_url: imageUrl,
+                description: description
             }
         })
         setDescription('');

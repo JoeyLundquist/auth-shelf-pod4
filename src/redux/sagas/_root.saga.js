@@ -5,7 +5,6 @@ import userSaga from './user.saga';
 
 import shelfSaga from './shelf.saga';
 
-import deleteSaga from './delete.saga';
 
 
 // rootSaga is the primary saga.
@@ -21,7 +20,6 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     shelfSaga(),
-    deleteSaga(),
 
   ]);
 }

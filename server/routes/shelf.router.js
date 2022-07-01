@@ -63,7 +63,10 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   pool.query(sqlQuery, sqlParams).then ((dbRes) => {
     if (dbRes.rows.length === 0 ){
       res.sendStatus(404)
-  }
+      // if you're sending information back in a delete like you are with the returning *, you need to send a status back
+    } else {
+    res.sendStatus(200)
+    }
   })
   .catch((err) => {
     console.log('Err in DELETE', err)

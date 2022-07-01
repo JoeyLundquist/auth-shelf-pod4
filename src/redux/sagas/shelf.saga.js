@@ -16,7 +16,7 @@ function* getShelf() {
 };
 function* addItem(action) {
     try {
-        const item = yield axios.post('/api/shelf', action.payload);
+        const items = yield axios.post('/api/shelf', action.payload);
         yield put ({
             type:'FETCH_SHELF'
         })
@@ -26,9 +26,24 @@ function* addItem(action) {
     }
 }
 
+function* deleteItem(action){
+    try {
+        yield axios.delete(`/api/shelf/${action.payload.id}`);
+        
+    }
+    catch(err) {
+        console.log("o jezz", err)
+    }
+    yield put ({
+        type:'FETCH_SHELF'
+    })
+}
+
+
 function* shelfSaga() {
     yield takeLatest('FETCH_SHELF', getShelf);
     yield takeLatest('ADD_ITEM', addItem);
+    yield takeLatest('DELETE_ITEM', deleteItem)
   }
 
 export default shelfSaga;
