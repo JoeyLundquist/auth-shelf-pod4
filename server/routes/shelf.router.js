@@ -18,6 +18,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }) 
 });
 
+router.get('/my_shelf/', rejectUnauthenticated, (req, res) => {
+  const query = `
+  SELECT * FROM item
+  WHERE item.user_id = $1;
+  `;
+
+  const sqlParams = [
+    req.user.id
+  ]
+  pool.query(query, sqlParams)
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log(`Error in the shelf router`, err)
+      res.sendStatus(500);
+    }) 
+});
+
 /**
  * Add an item for the logged in user to the shelf
  */

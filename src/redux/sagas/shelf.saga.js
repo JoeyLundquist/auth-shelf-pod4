@@ -1,6 +1,17 @@
 import axios from "axios";
 import { put, takeLatest } from 'redux-saga/effects';
 
+function* getMyShelf() {
+    try {
+        const items = yield axios.get('/api/shelf/my_shelf/')
+        yield put ({
+            type : 'SET_SHELF',
+            payload: items.data
+        })
+    } catch(err) {
+        console.log('Error in getMyShelf', err)
+    }
+}
 
 function* getShelf() {
     try {
@@ -41,6 +52,8 @@ function* deleteItem(action){
 
 
 function* shelfSaga() {
+    yield takeLatest("FETCH_MY_SHELF", getMyShelf)
+    
     yield takeLatest('FETCH_SHELF', getShelf);
     yield takeLatest('ADD_ITEM', addItem);
     yield takeLatest('DELETE_ITEM', deleteItem)
